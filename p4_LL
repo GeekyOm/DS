@@ -1,0 +1,241 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct node {
+    int data;
+    struct node *link;
+} *head, *temp, *curr, *prev;
+
+int n;
+int isEmpty();
+void create();
+void display();
+void insert_beg();
+void insert_end();
+void del_beg();
+void del_end();
+
+// isEmpty() Function
+    
+int isEmpty()
+{
+    if(head == NULL)
+    {
+        return (1);
+    }
+    else
+        return (0);
+}
+
+void create()
+{
+    int ch;
+    int ans;
+    temp = head;
+    
+    do {
+        
+        printf("\n\n ENTER THE INTEGER DATA VALUE OF THE NODE : ");
+        scanf("%d", &n);
+        
+        curr = malloc(sizeof (struct node));
+        
+        curr->data = n;
+        curr->link = NULL;
+        
+        if(head == NULL)
+        {
+            head = curr;
+            temp = curr;
+        }
+        else
+        {
+            temp->link = curr;
+            temp = curr;
+        }
+        
+        printf("\n\n WANT TO CREATE MORE NODES? 0 OR 1 : ");
+        scanf("%d", &ans);
+    } while(ans == 1);
+}
+
+// display() Function
+
+void display()
+{
+    temp = head;
+    
+    if(isEmpty() == 1)
+        printf("\n\n SORRY! Empty Linked List is Empty!");
+    else
+    {
+        printf("\n\t");
+        while(temp != NULL)
+        {
+            printf("%p --> ", head->link);
+            printf("%d - %p", temp->data, temp->link);
+            temp = temp->link;
+        }
+        printf("NULL");
+    }
+}
+
+// insert_beg() Function
+
+void insert_beg()
+{
+    curr = malloc(sizeof(struct node));
+    printf("\n\n ENTER THE DATA TO INSERT : ");
+    scanf("%d", &n);
+    
+    curr->data = n;
+    curr->link = NULL;
+    
+    if(head == NULL)
+    {
+        head = curr;
+    }
+    else
+    {
+        curr->link = head;
+        head = curr;
+    }
+}
+
+
+// insert_end() Function
+
+void insert_end()
+{
+    temp = head;
+    printf("\n\n ENTER THE DATA TO INSERT : ");
+    scanf("%d", &n);
+    
+    curr = malloc(sizeof(struct node));
+    
+    curr->data = n;
+    curr->link = NULL;
+    
+    if(head == NULL)
+    {
+        head = curr;
+        temp = curr;
+    }
+    else
+    {
+        while(temp != NULL)
+        {
+            temp = temp->link;
+        }
+    }
+        temp->link = curr;
+}
+
+// del_beg()
+
+void del_beg()
+{
+    temp = head;
+    
+    if(isEmpty() == 1)
+    {
+        printf("\n\n Sorry! Linked List is Empty!");
+    }
+    else
+    {
+        if(head->link == NULL)
+        {
+            printf("\n\n DELETED ELEMENT IS %d", temp->data);
+            head = NULL;
+        }
+        else
+        {
+            printf("\n\n DELETED ELEMENT IS %d", temp->data);
+            head = head->link;
+        }
+        
+        free(temp);
+    }
+}
+
+// del_end() Function
+
+void del_end()
+{
+    temp = head;
+    prev = head;
+    
+    if(isEmpty() == 1)
+    {
+        printf("\n\n Sorry! Empty Linked List!");
+    }
+    else
+    {
+        if(head->link == NULL)
+        {
+            printf("\n\n DELETED ELEMENT IS %d", temp->data);
+            head = NULL;
+        }
+        else
+        {
+            while(temp != NULL)
+            {
+                prev = temp;
+                temp = temp->link;
+            }
+            
+            printf("\n\n DELETED ELEMENT IS : %d", temp->data);
+            prev->link = NULL;
+        }
+        free(temp);
+    }
+}
+
+
+void main()
+{
+    int ch, y, val;
+    int ans;
+    head = NULL;
+    //clrscr
+    
+    do {
+        printf("\n\n\t ---- MENU ----");
+        printf("\n\n\t 1. CREATE LINKED LIST");
+        printf("\n\n\t 2. DISPLAY LINKED LIST");
+        printf("\n\n\t 3. INSERT AT BEGINNING");
+        printf("\n\n\t 4. INSERT AT ENDING");
+        printf("\n\n\t 5. DELETING AT BEGINNING");
+        printf("\n\n\t 6. DELETING AT ENDING");
+        printf("\n\n\t 7. EXIT");
+        
+        printf("\n\n\t ENTER YOUT CHOICE : ");
+        scanf("%d", &ch);
+        
+        switch(ch)
+        {
+            case 1: create();
+                    break;
+            case 2: display();
+                    break;
+            case 3: insert_beg();
+                    break;
+            case 4: insert_end();
+                    break;
+            case 5: del_beg();
+                    break;
+            case 6: del_end();
+                    break;
+            case 7: exit(0);
+                    break;
+            default:
+                    printf("\n\n Sorry! Wrong Choice...");
+                    break;
+        }
+        
+        printf("\n\n\t DO YOU WANT TO CONTTINUE... (1 / 0) : ");
+        scanf("%d", &ans);
+        
+    } while(ans == 1 || ans == 0);
+}
