@@ -35,5 +35,5 @@ void main()
     if(INDEX != -1)
       printf("\n\n INDEX OF P in T is %d", INDEX);
     else
-      prinf("\n\n P does not exist in T);
+      printf("\n\n P does not exist in T");
   }
